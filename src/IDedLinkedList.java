@@ -1,2 +1,2 @@
-public class IDedLinkedList {
+public class IDedLinkedList<AnyType extends IDedObject> {
 }
