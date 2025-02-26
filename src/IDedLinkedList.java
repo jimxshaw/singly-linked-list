@@ -6,10 +6,32 @@ public class IDedLinkedList<T extends IDedObject> {
         this.sentinel = new Link<>(Integer.MIN_VALUE, null, null);
     }
 
-    // TODO: Implement the class methods.
-//    public void makeEmpty() {}
+    public void makeEmpty() {
+        // Cut off the connection between the
+        // sentinel and the first link.
+        sentinel.next = null;
+    }
 
-//    public T findID(int ID) {}
+    public T findID(int ID) {
+        // We always start at first link after the sentinel.
+        Link<T> currentLink = sentinel.next;
+
+        // As long as current link exists and the ID doesn't match
+        // then we keep going to the next link and do the ID check again.
+        while (currentLink != null && currentLink.ID != ID) {
+            // The end of the list will mark current link as null.
+            currentLink = currentLink.next;
+        }
+
+        // We need to check if current link exists or not again in order
+        // to differentiate between actually finding the ID (do exist) or
+        // reaching the end of the list (doesn't exist).
+        if (currentLink != null) {
+            return currentLink.data;
+        } else {
+            return null;
+        }
+    }
 
 //    public boolean insertAtFront(T type) {}
 
