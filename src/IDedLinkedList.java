@@ -37,7 +37,23 @@ public class IDedLinkedList<T extends IDedObject> {
 
 //    T deleteFromFront() {}
 
-//    int printTotal() {}
+    int printTotal() {
+        if (sentinel.next == null) {
+            return -1;
+        }
+
+        int sum = 0;
+        Link<T> currentLink = sentinel.next;
+
+        // As long as current link exists, add its
+        // ID value to the running total.
+        while (currentLink != null) {
+            sum += currentLink.ID;
+            currentLink = currentLink.next;
+        }
+
+        return sum;
+    }
 
     private static class Link<T> {
         int ID;
