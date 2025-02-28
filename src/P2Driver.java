@@ -55,7 +55,7 @@ public class P2Driver {
                             }
                         }
                         MyItem new_item = new MyItem(id, price, description);
-                        result = LL.inserAtFront(new_item);
+                        result = LL.insertAtFront(new_item);
                         //result = Insert the item into the linkedlist and get true or false
                         out.println(result ? "True" : "False");
                     } catch (Exception e) {

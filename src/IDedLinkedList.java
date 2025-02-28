@@ -33,9 +33,63 @@ public class IDedLinkedList<T extends IDedObject> {
         }
     }
 
-//    public boolean insertAtFront(T type) {}
+    public T delete(int ID) {
+        // See if the list is empty.
+        if (sentinel.next == null) {
+            return null;
+        }
 
-//    T deleteFromFront() {}
+        // Start at the sentinel because there's a possibility
+        // the item to be deleted is the first link after sentinel.
+        Link<T> currentLink = sentinel;
+
+        while (currentLink.next != null) {
+            if (currentLink.next.ID == ID) {
+                T deletedItem = currentLink.next.data;
+
+                // Sentinel -> A -> B becomes Sentinel -> B.
+                // A is considered "deleted" and will be
+                // garbage collected later.
+                currentLink.next = currentLink.next.next;
+
+                return deletedItem;
+            }
+
+            // Move on to the next link.
+            currentLink = currentLink.next;
+        }
+
+        // The item doesn't exist.
+        return null;
+    }
+
+    public boolean insertAtFront(T type) {
+        // The item already exists.
+        if (findID(type.getID()) != null) {
+            return false;
+        }
+
+        // If the item doesn't exist then instantiate a link by assigning
+        // its next link as the old first link. Make sure the sentinel's next
+        // link points to this new first link.
+        Link<T> oldFirstLink = sentinel.next;
+        sentinel.next = new Link<T>(type.getID(), oldFirstLink, type);
+
+        return true;
+    }
+
+    T deleteFromFront() {
+        if (sentinel.next == null) {
+            return null;
+        }
+
+        // The second link becomes the new first link.
+        // The old first link will be garbage collected.
+        Link<T> firstLink = sentinel.next;
+        sentinel.next = firstLink.next;
+
+        return firstLink.data;
+    }
 
     int printTotal() {
         if (sentinel.next == null) {
