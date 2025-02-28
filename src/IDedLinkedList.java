@@ -33,7 +33,20 @@ public class IDedLinkedList<T extends IDedObject> {
         }
     }
 
-//    public boolean insertAtFront(T type) {}
+    public boolean insertAtFront(T type) {
+        // The item already exists.
+        if (findID(type.getID()) != null) {
+            return false;
+        }
+
+        // If the item doesn't exist then instantiate a link by assigning
+        // its next link as the old first link. Make sure the sentinel's next
+        // link points to this new first link.
+        Link<T> oldFirstLink = sentinel.next;
+        sentinel.next = new Link<T>(type.getID(), oldFirstLink, type);
+
+        return true;
+    }
 
     T deleteFromFront() {
         if (sentinel.next == null) {
