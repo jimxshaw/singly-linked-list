@@ -35,7 +35,18 @@ public class IDedLinkedList<T extends IDedObject> {
 
 //    public boolean insertAtFront(T type) {}
 
-//    T deleteFromFront() {}
+    T deleteFromFront() {
+        if (sentinel.next == null) {
+            return null;
+        }
+
+        // The second link becomes the new first link.
+        // The old first link will be garbage collected.
+        Link<T> firstLink = sentinel.next;
+        sentinel.next = firstLink.next;
+
+        return firstLink.data;
+    }
 
     int printTotal() {
         if (sentinel.next == null) {
