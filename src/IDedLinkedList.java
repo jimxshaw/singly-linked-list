@@ -33,6 +33,36 @@ public class IDedLinkedList<T extends IDedObject> {
         }
     }
 
+    public T delete(int ID) {
+        // See if the list is empty.
+        if (sentinel.next == null) {
+            return null;
+        }
+
+        // Start at the sentinel because there's a possibility
+        // the item to be deleted is the first link after sentinel.
+        Link<T> currentLink = sentinel;
+
+        while (currentLink.next != null) {
+            if (currentLink.next.ID == ID) {
+                T deletedItem = currentLink.next.data;
+
+                // Sentinel -> A -> B becomes Sentinel -> B.
+                // A is considered "deleted" and will be
+                // garbage collected later.
+                currentLink.next = currentLink.next.next;
+
+                return deletedItem;
+            }
+
+            // Move on to the next link.
+            currentLink = currentLink.next;
+        }
+
+        // The item doesn't exist.
+        return null;
+    }
+
     public boolean insertAtFront(T type) {
         // The item already exists.
         if (findID(type.getID()) != null) {
