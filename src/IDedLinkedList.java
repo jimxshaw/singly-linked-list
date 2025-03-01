@@ -1,4 +1,6 @@
 public class IDedLinkedList<T extends IDedObject> {
+    // I've decided to use a sentinel in my Linked List
+    // in order to simplify error handling.
     private final Link<T> sentinel;
 
     IDedLinkedList() {
@@ -33,6 +35,34 @@ public class IDedLinkedList<T extends IDedObject> {
         }
     }
 
+    public boolean insertAtFront(T type) {
+        // The item already exists.
+        if (findID(type.getID()) != null) {
+            return false;
+        }
+
+        // If the item doesn't exist then instantiate a link by assigning
+        // its next link as the old first link. Make sure the sentinel's next
+        // link points to this new first link.
+        Link<T> oldFirstLink = sentinel.next;
+        sentinel.next = new Link<>(type.getID(), oldFirstLink, type);
+
+        return true;
+    }
+
+    T deleteFromFront() {
+        if (sentinel.next == null) {
+            return null;
+        }
+
+        // The second link becomes the new first link.
+        // The old first link will be garbage collected.
+        Link<T> firstLink = sentinel.next;
+        sentinel.next = firstLink.next;
+
+        return firstLink.data;
+    }
+
     public T delete(int ID) {
         // See if the list is empty.
         if (sentinel.next == null) {
@@ -63,34 +93,6 @@ public class IDedLinkedList<T extends IDedObject> {
         return null;
     }
 
-    public boolean insertAtFront(T type) {
-        // The item already exists.
-        if (findID(type.getID()) != null) {
-            return false;
-        }
-
-        // If the item doesn't exist then instantiate a link by assigning
-        // its next link as the old first link. Make sure the sentinel's next
-        // link points to this new first link.
-        Link<T> oldFirstLink = sentinel.next;
-        sentinel.next = new Link<T>(type.getID(), oldFirstLink, type);
-
-        return true;
-    }
-
-    T deleteFromFront() {
-        if (sentinel.next == null) {
-            return null;
-        }
-
-        // The second link becomes the new first link.
-        // The old first link will be garbage collected.
-        Link<T> firstLink = sentinel.next;
-        sentinel.next = firstLink.next;
-
-        return firstLink.data;
-    }
-
     int printTotal() {
         if (sentinel.next == null) {
             return -1;
@@ -109,6 +111,8 @@ public class IDedLinkedList<T extends IDedObject> {
         return sum;
     }
 
+    // A Linked List is made of "nodes". A Link is what I decided to
+    // call my "nodes". My Linked List is made of "links" like with a chain.
     private static class Link<T> {
         int ID;
         Link<T> next;

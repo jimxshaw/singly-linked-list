@@ -19,10 +19,9 @@ public class P2Driver {
             PrintWriter out;
             out = new PrintWriter(output_file);
 
-            IDedLinkedList<MyItem> LL = new IDedLinkedList();
+            IDedLinkedList<MyItem> LL = new IDedLinkedList<>();
 
-            String operation = "";
-            int lineno = 0;
+            String operation;
 
             int id, price;
             boolean result;
@@ -30,7 +29,6 @@ public class P2Driver {
 
             whileloop:
             while (in.hasNext()) {
-                lineno++;
 
                 operation = in.next();
                 if (operation.charAt(0) == '#') {
@@ -59,7 +57,7 @@ public class P2Driver {
                         //result = Insert the item into the linkedlist and get true or false
                         out.println(result ? "True" : "False");
                     } catch (Exception e) {
-                        out.println("ERROR");
+                        out.println("ERROR in Insert");
                     }
 
                     break;
@@ -95,7 +93,7 @@ public class P2Driver {
                         break;
 
                     case "PrintTotal":
-                        //Call the printtotal method of the linkedlist and print the given int into the output file.
+                        //Call the printTotal method of the linkedlist and print the given int into the output file.
                         int total = LL.printTotal();
                         out.println(total);
                         break;
