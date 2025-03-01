@@ -1,0 +1,12 @@
+True
+True
+True
+id=37, price="47", description="109 475 694 88"
+id=22, price="19", description="109 475 694 88"
+34
+False
+True
+79
+Null
+ERROR
+ERROR
